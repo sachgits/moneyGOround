@@ -4,7 +4,7 @@ let config = {
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3000,
   graphql: {
-    port: 8000
+    port: 9090
   }
 };
 
