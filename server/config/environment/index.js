@@ -4,7 +4,11 @@ let config = {
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3000,
   graphql: {
+<<<<<<< Updated upstream
     port: 9090
+=======
+    port: 8181
+>>>>>>> Stashed changes
   }
 };
 

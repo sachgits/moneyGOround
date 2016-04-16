@@ -9,8 +9,9 @@ export default class App extends React.Component {
       <div>
         <Navbar />
         <div className="greeting">
-          <h1>Sawasdee, Sawasdee!</h1>
-          <p>Always a pleasure scaffolding your apps</p>
+          <h1>MERRY-GO-ROUND</h1>
+          <p>Always a pleasure finding new jobs</p>
+
           <img src={require('../../assets/yeoman.png')} />
         </div>
         <div className='content'>

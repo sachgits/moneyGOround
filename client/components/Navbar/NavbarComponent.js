@@ -5,7 +5,7 @@ import './Navbar.scss';
 
 export default class Navbar extends React.Component {
   render() {
-    const title = 'Relay Fullstack';
+    const title = 'George\'s Job Listing';
     return (
       <Layout>
         <Header title={<Link to='/'>{title}</Link>} scroll>
