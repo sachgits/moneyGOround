@@ -1,17 +1,16 @@
 /**
  * Created by sachg on 4/8/2016.
  */
-class User{
-  constructor(id,username,firstname,lastname,phonenumber){
-    this.id = id;
-    this.userName = username;
-    this.firstName = firstname;
-    this.lastName = lastname;
-    this.phoneNumber = phonenumber;
-  }
-  
-  findUsersNextLuckyDay(){
-    
-  }
-}
+
+import mongoose  from 'mongoose';
+const Schema = mongoose.Schema;
+
+let UserSchema = new Schema({
+  username: {type: String, required:true},
+  firstname: String,
+  lastname:String,
+  phoneNumber: String
+});
+
+let User = mongoose.model('User', UserSchema);
 module.exports = User;
