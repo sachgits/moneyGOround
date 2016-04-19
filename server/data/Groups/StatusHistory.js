@@ -4,9 +4,10 @@
 import mongoose  from 'mongoose';
 var Schema = mongoose.Schema;
 
-var statusHistory = new Schema({
+var GrpHistorySchema = new Schema({
   statusType: Number,
   timeStamp: {type: Date, default: Date.now},
 });
-
-module.exports = StatusHistory;
+var History = mongoose.model('History', GrpHistorySchema);
+module.exports = GrpHistorySchema;
+module.exports = History;
