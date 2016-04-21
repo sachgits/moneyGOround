@@ -29,15 +29,14 @@ GroupsSchema.methods.getDaysIntervalFrmStrategy = function () {
 }
 
 GroupsSchema.methods.addUserToGroup = function(new_user){
-  //
-  var current_status = this.status;
+  //TODO: will work on you kesho in your own branch so we can screw you very well
   var user_new = null;
   var group_users_count = this.users.length;
   var max_users_allowed = this.getMaxUsersFrmStrategy();//TODO casting form string to int may be needed here watch carefully
   if(this.users.includes(new_user) || group_users_count >= max_users_allowed)
     return false;
 
-  switch(current_status){ //make sure that status is of type group_status.PENDING|ACTIVE|INACTIVE not just group_status object
+  switch(this.status){ //make sure that status is of type group_status.PENDING|ACTIVE|INACTIVE not just group_status object
     case GROUP_STATUS.PENDING:
           this.users.push(new_user);//what is the maximum number of users in the group that will not happen due to inhouse keeping
           user_new = this.users[group_users_count];//what if users have not reached this count
@@ -108,8 +107,18 @@ GroupsSchema.methods.removeUserFromGroup = function(user2rem){
 
 //TODO Swap users between two groups
 
-GroupsSchema.methods.createGroupSchedule = function(){
+GroupsSchema.methods.addUserToGroup2 = function(newUser){
+  console.log("about to push user");
+this.users.push(newUser);
 
+  this.save(function(err,res){
+    console.log('inside of save before anything');
+    if(err){
+      console.error(err);
+    }else{
+      console.log(res);
+    }
+  })
 }
 
 GroupsSchema.methods.changeGroupSchedule = function(){
