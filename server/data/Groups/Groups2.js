@@ -30,42 +30,40 @@ GroupsSchema.methods.getDaysIntervalFrmStrategy = function () {
 
 GroupsSchema.methods.addUserToGroup = function(new_user){
   //
-  var current_status = this.status;
-  var user_new = null;
-  var group_users_count = this.users.length;
-  var max_users_allowed = this.getMaxUsersFrmStrategy();//TODO casting form string to int may be needed here watch carefully
-  if(this.users.includes(new_user) || group_users_count >= max_users_allowed)
+  if(this.status == GROUP_STATUS.INACTIVE || this.status == GROUP_STATUS.INACTIVE_AND_LESS_USERS || this.status == GROUP_STATUS.READY ||
+  this.status == GROUP_STATUS.ACTIVE || this.users.includes(new_user))//TODO: will throw relevant exeception later
     return false;
-
-  switch(current_status){ //make sure that status is of type group_status.PENDING|ACTIVE|INACTIVE not just group_status object
+  switch(this.status){
     case GROUP_STATUS.PENDING:
-          this.users.push(new_user);//what is the maximum number of users in the group that will not happen due to inhouse keeping
-          user_new = this.users[group_users_count];//what if users have not reached this count
-          if(this.users.length == max_users_allowed)
-            this.status = GROUP_STATUS.READY; //not sure if we need Enum READY
-            //group ready to start merrygoround notify users
-          break;
-    case GROUP_STATUS.ACTIVE: //if the group allows expansion why not keep adding
-          break;
-    case GROUP_STATUS.INACTIVE: //why would you add a user to an inactive group
+          addUser(this, new_user,GROUP_STATUS.READY,'joined');
+            //TODO: READY STATUS
+            // deter fraudstars from waiting their turns then walking  out by
+            //first round is played where no one gets cash from there we go to ACTIVE
           break;
     case GROUP_STATUS.LESS_USERS:
-          this.users.push(new_user);
-          user_new = this.users[group_users_count];
-          if(this.users.length == max_users_allowed)
-            this.status = GROUP_STATUS.ACTIVE;
-          break;
+          addUser(this,new_user,GROUP_STATUS.ACTIVE,'joined');
+      // TODO: LESS_USERS STATUS
+      //does the user fit to join the group $mulla$ wise
+      break;
   }
+}
 
-  if(user_new.isNew) {
-    this.status_history.push({statusType:this.status});
-    this.user_register.push({user:new_user,status:'new user'});
-    this.save(function (err) {
-      if (err)
-        console.error(err);
-      console.log("new user saved");
-    });
+var addUser = function(group,new_user, group_status,register_status){
+  group.users.push(new_user);
+  if(group.users.length == group.getMaxUsersFrmStrategy()) {
+    group.status = group_status;
+    group.status_history.push(new History({statusType: group_status}));
+    group.user_register.push(new Register({user: new_user, status: register_status}));
+    //TODO: READY STATUS
+    // deter fraudstars from waiting their turns then walking  out by
+    //first round is played where no one gets cash from there we go to ACTIVE
   }
+    group.save(function (err, res) {
+      if (err) {
+        console.error(err);
+      }
+      console.log(res);
+    });
 
 }
 
