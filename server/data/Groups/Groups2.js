@@ -35,7 +35,7 @@ GroupsSchema.methods.addUserToGroup = function(new_user){
     return false;
   switch(this.status){
     case GROUP_STATUS.PENDING:
-          addUser(this, new_user,GROUP_STATUS.READY,'joined');
+          addUser(this, new_user,GROUP_STATUS.PENDING,'joined');
             //TODO: READY STATUS
             // deter fraudstars from waiting their turns then walking  out by
             //first round is played where no one gets cash from there we go to ACTIVE
