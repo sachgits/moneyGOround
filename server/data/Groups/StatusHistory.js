@@ -9,5 +9,5 @@ var GrpHistorySchema = new Schema({
   timeStamp: {type: Date, default: Date.now},
 });
 var History = mongoose.model('History', GrpHistorySchema);
-module.exports = GrpHistorySchema;
+
 module.exports = History;
