@@ -67,39 +67,44 @@ var addUser = function(group,new_user, group_status,register_status){
 
 }
 
+var removeUser = function(group,group_status, removedUser,register_status){
+  group.users.id(removedUser._id).remove();//TODO: not sure if this true remove subdoc technigque
+  group.status = group_status;
+  group.status_history.push(new History({statusType: group_status}));
+  group.user_register.push(new Register({user: user2rem, status: register_status}));
+  group.save(function(err){
+    if(err)
+      console.error(err);
+    console.log("user successfully removed");
+  });
+}
+
 GroupsSchema.methods.removeUserFromGroup = function(user2rem){
-  var current_status = this.status;
+  var group_status = this.status;
   var group_users_count = this.users.length;
 
   if(this.users.includes(user2rem)){
-    switch (current_status){
+    switch (this.status){
       case GROUP_STATUS.PENDING || GROUP_STATUS.READY:
-        this.users.id(user2rem._id).remove();//TODO: not sure about this removing technigue
         if(group_users_count <= 1)
-          this.status = GROUP_STATUS.EMPTY; //what do we do with empty group //return cash to owners
-        //how do we tell which users were here previously so that we might return their cash
-        if(this.status == GROUP_STATUS.READY)
-          this.status = GROUP_STATUS.PENDING;
+          group_status = GROUP_STATUS.EMPTY;
+        else
+          group_status = GROUP_STATUS.PENDING;
         break;
       case GROUP_STATUS.ACTIVE || GROUP_STATUS.LESS_USERS:
-            this.users.id(user2rem._id).remove();//TODO: not sure about this removal method maybe a placeholder
-            if(group_users_count <=3 )//TODO: notify users
-              this.status = GROUP_STATUS.PENDING; //TODO: what happens when a group is in pending situation while merryGoRound was on
+            if(group_users_count <= 3 )//TODO: notify users what if group has 30 users 3 is to less calculations needed
+              group_status = GROUP_STATUS.PENDING;
             else//TODO: notify users
-              this.status = GROUP_STATUS.LESS_USERS;//TODO: does this mean the strategy might change
+              group_status = GROUP_STATUS.LESS_USERS;
             break;
       case GROUP_STATUS.INACTIVE || GROUP_STATUS.INACTIVE_AND_LESS_USERS:
-            this.users.id(user2rem._id).remove(); //TODO: not sure about this remove
-            if(group_users_count <= 1)
-              this.status = GROUP_STATUS.EMPTY;
+            if(group_users_count < 1)
+              group_status = GROUP_STATUS.EMPTY;
             else
-              this.status = GROUP_STATUS.INACTIVE_AND_LESS_USERS;
+              group_status = GROUP_STATUS.INACTIVE_AND_LESS_USERS;
             break;
     }
-    this.save(function(err){//not sure if model instance has this.save function
-      if(err)
-        console.error(err);
-    })
+    removeUser(this,groupStatus,user2rem,'left');
   }
 
 }
