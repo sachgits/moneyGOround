@@ -1,6 +1,7 @@
+/* eslint-disable global-require */
 import _ from 'lodash';
 
-let config = {
+const config = {
   env: process.env.NODE_ENV || 'development',
   port: process.env.PORT || 3000,
   graphql: {

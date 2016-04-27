@@ -1,10 +1,18 @@
-# Relay Fullstack
+<h1 align="center">
+  <br>
+	<img width="800" src="https://cloud.githubusercontent.com/assets/4281887/14516854/792107ac-0231-11e6-95dd-86bb2b5197e3.png">
+	<br>
+  <br>
+  <br>
+</h1>
+
 [![Dependency Status](https://img.shields.io/david/lvarayut/relay-fullstack.svg)](https://github.com/lvarayut/relay-fullstack)
 [![devDependency Status](https://img.shields.io/david/dev/lvarayut/relay-fullstack.svg)](https://github.com/lvarayut/relay-fullstack)
 > Relay Fullstack is a Relay scaffolding application that aims to help you get up and running a project without worrying about integrating tools. It comes with many modern technologies; Relay, GraphQL, Express, ES6/ES7, JSX, Webpack, Babel, Material Design Lite, and PostCSS. Relay Fullstack is also using [Hot-reload](https://github.com/gaearon/react-transform-hmr) to real time update the screen whenever any code changes.
 
 ## Example 
-![laptop](https://cloud.githubusercontent.com/assets/4281887/13377800/9c4705a2-de1d-11e5-82cb-745e16d5b1c4.gif)
+![Demo](https://cloud.githubusercontent.com/assets/4281887/13377800/9c4705a2-de1d-11e5-82cb-745e16d5b1c4.gif)
+> Check out the [Live demo](http://relay-fullstack.herokuapp.com) on Heroku.
 
 ## Usage
 
@@ -24,6 +32,7 @@ Launch your favorite web browser and go to `http://localhost:3000` for Relay app
 
 ## Deployment
 
+#### Local machine
 In order to deploy a project, it is a good practice to minify all JavaScript files, stop spawning the GraphiQL server, pull off some duplicate dependencies, and remove all unnecessary scripts, for example, Hot-reload. All of these can be done by executing the following command:
 
 ```bash
@@ -31,6 +40,17 @@ $ npm run deploy
 ```
 
 Again, launch your favorite web browser and go to `http://localhost:3000`.
+
+#### Heroku
+Before getting started, make sure you already installed the [Heroku Toolbelt](https://toolbelt.heroku.com), which is a command-line tooling for managing Heroku applications that makes it easy to deploy an application in a few steps:
+
+```bash
+$ heroku create                     # Create a new Heroku application
+$ git push heroku master            # Push your code into the created Heroku repository
+$ heroku ps:scale web=1             # Run the deployed application
+````
+
+That is it! Now, open the application on your default browser using `heroku open`.
 
 ## Schema
 
@@ -98,9 +118,29 @@ $ npm run update
 
 [PostCSS](http://postcss.org) - PostCSS is a tool for transforming CSS with JavaScript. It has roughly 200 plugins to help you write CSS easier.
 
+### Additional Tools
+[React transform HMR](https://github.com/gaearon/react-transform-hmr) - A React Transform that enables hot reloading React classes.
+
+[React router relay](https://github.com/relay-tools/react-router-relay) - Relay integration for React Router.
+
+[Eslint](http://eslint.org) - The pluggable linting utility for JavaScript and JSX.
+
+[Autoprefixer](https://github.com/postcss/autoprefixer) - Parse CSS and add vendor prefixes to rules.
+
+[Precss](https://github.com/jonathantneal/precss) - Use Sass-like markup in your CSS.
+
+[Nodemon](http://nodemon.io) - Monitor for any changes in your node.js application and automatically restart the server.
+
 ## Credits
 - Relay Fullstack is inspired by [relay-starter-kit](https://github.com/relayjs/relay-starter-kit). Please take a look at the original code to learn more.
 - Handcrafted with ♥ by Varayut Lerdkanlayanawat.
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+| [![lvarayut](https://avatars.githubusercontent.com/u/4281887?v=3&s=120)<br /><sub>lvarayut</sub>](https://github.com/lvarayut)<br /> | [![ianaya89](https://avatars.githubusercontent.com/u/3258966?v=3&s=120)<br /><sub>ianaya89</sub>](https://github.com/ianaya89)<br /> | [![kennydee](https://avatars.githubusercontent.com/u/1484406?v=3&s=120)<br /><sub>kennydee</sub>](https://github.com/kennydee)<br /> | [![jg123](https://avatars.githubusercontent.com/u/693277?v=3&s=120)<br /><sub>jg123</sub>](https://github.com/jg123)<br /> |
+| :---: | :---: | :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## License
 
